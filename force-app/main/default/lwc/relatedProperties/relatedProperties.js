@@ -5,6 +5,10 @@ import { registerListener, unregisterAllListeners } from 'c/pubsub';
 import { CurrentPageReference } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
 
+// Import LMS and messageChannel we will be using
+import { subscribe, unsubscribe, createMessageContext, deleteMessageContext } from 'lightning/messageService';
+import TEST_CHANNEL from "@salesforce/messageChannel/Test__c";
+
 import NAME_FIELD from '@salesforce/schema/Property__c.Name';
 import PRICE_FIELD from '@salesforce/schema/Property__c.Price__c';
 import STATUS_FIELD from '@salesforce/schema/Property__c.Status__c';
@@ -24,6 +28,11 @@ export default class RelatedProperties extends LightningElement {
     @track cardTitle;
     @api searchCriteria;
     @api priceRange;
+
+    // Set message context and subscription object in LMS
+    context = createMessageContext();
+    subscription = null;
+    //
 
     @wire(getRecord, {recordId: '$recordId', fields})
     wiredProperty(value) {
@@ -53,14 +62,19 @@ export default class RelatedProperties extends LightningElement {
         }
     }
 
-    @wire(CurrentPageReference) pageRef;
+    //@wire(CurrentPageReference) pageRef;
 
     connectedCallback() {
-        registerListener('propertyUpdated', this.refreshSelection, this);
+        //registerListener('propertyUpdated', this.refreshSelection, this);
+        if (this.subscription) {
+            return;
+        }
+        this.subscription = subscribe(this.context, TEST_CHANNEL, this.refreshSelection.bind(this));
     }
 
     disconnectedCallback() {
-        unregisterAllListeners(this);
+        //unregisterAllListeners(this);
+        releaseMessageContext(this.context);
     }
     refreshSelection() {
         refreshApex(this.wiredRecords);

@@ -3,6 +3,15 @@
         "experimentalDecorators": true,
         "baseUrl": ".",
         "paths": {
+            "c/brokerCard": [
+                "brokerCard/brokerCard.js"
+            ],
+            "c/businessExplorer": [
+                "businessExplorer/businessExplorer.js"
+            ],
+            "c/businessExplorerItem": [
+                "businessExplorerItem/businessExplorerItem.js"
+            ],
             "c/greeting": [
                 "greeting/greeting.js"
             ],
@@ -14,15 +23,6 @@
             ],
             "c/relatedProperty": [
                 "relatedProperty/relatedProperty.js"
-            ],
-            "c/brokerCard": [
-                "brokerCard/brokerCard.js"
-            ],
-            "c/businessExplorerItem": [
-                "businessExplorerItem/businessExplorerItem.js"
-            ],
-            "c/businessExplorer": [
-                "businessExplorer/businessExplorer.js"
             ]
         }
     },

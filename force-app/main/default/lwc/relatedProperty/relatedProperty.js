@@ -3,6 +3,13 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { fireEvent } from 'c/pubsub';
 import { NavigationMixin, CurrentPageReference } from 'lightning/navigation';
 
+// Import LMS and messageChannel we will be using
+import {
+    publish, createMessageContext
+} from 'lightning/messageService';
+
+import TEST_CHANNEL from "@salesforce/messageChannel/Test__c";
+
 import PRICE_FIELD from '@salesforce/schema/Property__c.Price__c';
 import STATUS_FIELD from '@salesforce/schema/Property__c.Status__c';
 import BEDS_FIELD from '@salesforce/schema/Property__c.Beds__c';
@@ -13,7 +20,8 @@ export default class RelatedProperty extends LightningElement {
     @api item;
     @track propertyFields = [PRICE_FIELD, BEDS_FIELD, BATHS_FIELD, STATUS_FIELD, BROKER_FIELD];
 
-    @wire(CurrentPageReference) pageRef;
+    //@wire(CurrentPageReference) pageRef;
+    context = createMessageContext();
 
     navigateToRecord() {
         this[NavigationMixin.Navigate]({
@@ -33,6 +41,7 @@ export default class RelatedProperty extends LightningElement {
             variant: "success",
         });
         this.dispatchEvent(evt);
-        fireEvent(this.pageRef, 'propertyUpdated', this);
+        //fireEvent(this.pageRef, 'propertyUpdated', this);
+        publish(this.context, TEST_CHANNEL, this);
     }
 }
