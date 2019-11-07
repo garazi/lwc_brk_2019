@@ -32,7 +32,6 @@ export default class RelatedProperties extends LightningElement {
     // Set message context and subscription object in LMS
     context = createMessageContext();
     subscription = null;
-    //
 
     @wire(getRecord, {recordId: '$recordId', fields})
     wiredProperty(value) {
@@ -62,10 +61,12 @@ export default class RelatedProperties extends LightningElement {
         }
     }
 
-    //@wire(CurrentPageReference) pageRef;
+    //@wire(CurrentPageReference) pageRef; <-- no longer used. replaced by LMS
 
     connectedCallback() {
-        //registerListener('propertyUpdated', this.refreshSelection, this);
+        //registerListener('propertyUpdated', this.refreshSelection, this); <-- replaced by LMS
+        
+        // check to see if a subscription exists, otherwise create it on the test_channel
         if (this.subscription) {
             return;
         }

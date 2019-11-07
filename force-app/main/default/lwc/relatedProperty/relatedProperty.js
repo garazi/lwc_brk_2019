@@ -1,15 +1,15 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import { fireEvent } from 'c/pubsub';
+import { fireEvent } from 'c/pubsub'; // being replaced with Lightning Message Service 
 import { NavigationMixin, CurrentPageReference } from 'lightning/navigation';
 
 // Import LMS and messageChannel we will be using
 import {
     publish, createMessageContext
 } from 'lightning/messageService';
-
 import TEST_CHANNEL from "@salesforce/messageChannel/Test__c";
 
+// Ensure referentail integrity by importing the schema for fields in use
 import PRICE_FIELD from '@salesforce/schema/Property__c.Price__c';
 import STATUS_FIELD from '@salesforce/schema/Property__c.Status__c';
 import BEDS_FIELD from '@salesforce/schema/Property__c.Beds__c';
@@ -20,7 +20,9 @@ export default class RelatedProperty extends LightningElement {
     @api item;
     @track propertyFields = [PRICE_FIELD, BEDS_FIELD, BATHS_FIELD, STATUS_FIELD, BROKER_FIELD];
 
-    //@wire(CurrentPageReference) pageRef;
+    //@wire(CurrentPageReference) pageRef; <-- this is only used for the pubsub library
+    
+    // Declare a new context for Lightning Message Service
     context = createMessageContext();
 
     navigateToRecord() {
@@ -41,7 +43,9 @@ export default class RelatedProperty extends LightningElement {
             variant: "success",
         });
         this.dispatchEvent(evt);
-        //fireEvent(this.pageRef, 'propertyUpdated', this);
+        //fireEvent(this.pageRef, 'propertyUpdated', this); <-- from c/pubsub
+        
+        // publish the message to the channel
         publish(this.context, TEST_CHANNEL, this);
     }
 }
