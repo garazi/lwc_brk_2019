@@ -6,7 +6,7 @@ import { CurrentPageReference } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
 
 // Import LMS and messageChannel we will be using
-import { subscribe, unsubscribe, createMessageContext, deleteMessageContext } from 'lightning/messageService';
+import { subscribe, unsubscribe, createMessageContext, releaseMessageContext } from 'lightning/messageService';
 import TEST_CHANNEL from "@salesforce/messageChannel/Test__c";
 
 import NAME_FIELD from '@salesforce/schema/Property__c.Name';
