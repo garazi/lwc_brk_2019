@@ -16,7 +16,7 @@ import BEDS_FIELD from '@salesforce/schema/Property__c.Beds__c';
 import BROKER_FIELD from '@salesforce/schema/Property__c.Broker__c';
 import BATHS_FIELD from '@salesforce/schema/Property__c.Baths__c';
 
-export default class RelatedProperty extends LightningElement {
+export default class RelatedProperty extends NavigationMixin(LightningElement) {
     @api item;
     @track propertyFields = [PRICE_FIELD, BEDS_FIELD, BATHS_FIELD, STATUS_FIELD, BROKER_FIELD];
 
@@ -29,7 +29,7 @@ export default class RelatedProperty extends LightningElement {
         this[NavigationMixin.Navigate]({
             type: 'standard__recordPage',
             attributes: {
-                recordId: this.theitem.Id,
+                recordId: this.item.Id,
                 objectApiName: 'Property__c',
                 actionName: 'view',
             },
