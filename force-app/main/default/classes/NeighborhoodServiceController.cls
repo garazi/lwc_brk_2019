@@ -1,5 +1,5 @@
 public class NeighborhoodServiceController {
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static String getListByLatLon (String latlon, String searchTerm) {
             String url = 'https://grewis-yelp.herokuapp.com/search?address=' + latlon + '&term=' + EncodingUtil.urlEncode(searchTerm, 'UTF-8');
             String resultList = getHttp(url);
@@ -15,7 +15,7 @@ public class NeighborhoodServiceController {
         return res.getBody();
     }
     
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static String getListByAddress(String address, String searchTerm) {
     try {
             String url = 'https://grewis-yelp.herokuapp.com/search?address=' + EncodingUtil.urlEncode(address, 'UTF-8') + '&term=' + EncodingUtil.urlEncode(searchTerm, 'UTF-8');

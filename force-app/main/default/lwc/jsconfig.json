@@ -3,8 +3,26 @@
         "experimentalDecorators": true,
         "baseUrl": ".",
         "paths": {
+            "c/brokerCard": [
+                "brokerCard/brokerCard.js"
+            ],
+            "c/businessExplorer": [
+                "businessExplorer/businessExplorer.js"
+            ],
+            "c/businessExplorerItem": [
+                "businessExplorerItem/businessExplorerItem.js"
+            ],
             "c/greeting": [
                 "greeting/greeting.js"
+            ],
+            "c/pubsub": [
+                "pubsub/pubsub.js"
+            ],
+            "c/relatedProperties": [
+                "relatedProperties/relatedProperties.js"
+            ],
+            "c/relatedProperty": [
+                "relatedProperty/relatedProperty.js"
             ]
         }
     },
